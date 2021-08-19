@@ -39,7 +39,7 @@ namespace API
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "API", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Datting App", Version = "v1" });
             });
             services.AddCors();
             services.AddIdentityServices(this.config);
@@ -49,6 +49,15 @@ namespace API
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             app.UseMiddleware<ExceptionMiddleware>();
+
+            app.UseSwagger();
+           // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.),
+           // specifying the Swagger JSON endpoint.
+           app.UseSwaggerUI(c =>
+           {
+               c.SwaggerEndpoint("/swagger/v1/swagger.json", "Datting App V1");
+               c.RoutePrefix = string.Empty;
+           });
 
             app.UseHttpsRedirection();
 
